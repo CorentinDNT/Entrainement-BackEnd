@@ -4,11 +4,12 @@ const router = express.Router();
 
 const stuffController = require("../controllers/stuff");
 const auth = require("../middleware/auth");
+const multer = require("multer");
 
-router.post("/", stuffController.createThing);
-router.put("/:id", stuffController.modifyThing);
-router.delete("/:id", stuffController.deleteThing);
-router.get("/:id", stuffController.getOneThing);
-router.use("/", stuffController.getAllThings);
+router.post("/", auth, multer, stuffController.createThing);
+router.put("/:id", auth, stuffController.modifyThing);
+router.delete("/:id", auth, stuffController.deleteThing);
+router.get("/:id", auth, stuffController.getOneThing);
+router.use("/", auth, stuffController.getAllThings);
 
 module.exports = router;
